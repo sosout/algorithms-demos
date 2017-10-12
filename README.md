@@ -113,6 +113,11 @@ function bubbleSort(arr){
     return arr;
 }
 ```
+算法分析
+
+最佳情况：输入数组按升序排列。T(n) = O(n) 
+最坏情况：输入数组按降序排列。T(n) = O(n^2) 
+平均情况：T(n) = O(n^2)
 
 ## 选择排序（selection Sort）
 
@@ -196,4 +201,49 @@ var arr=[-11, 17, 12, 19, 0, -222];
 console.log(mergeSort(arr,0,arr.length-1));
 ```
 
-## 快速排序（quick sort）
+## 快速排序（Quick Sort）
+
+"快速排序"的思想很简单，整个排序过程只需要三步：
+
+（1）在数据集之中，选择一个元素作为"基准"（pivot）。
+
+（2）所有小于"基准"的元素，都移到"基准"的左边；所有大于"基准"的元素，都移到"基准"的右边。
+
+（3）对"基准"左边和右边的两个子集，不断重复第一步和第二步，直到所有子集只剩下一个元素为止。
+
+举例来说，现在有一个数据集{85, 24, 63, 45, 17, 31, 96, 50}，怎么对其排序呢？
+
+第一步，选择中间的元素45作为"基准"。（基准值可以任意选择，但是选择中间的值比较容易理解。）
+
+![](./shot/quick_sort1.png)
+
+第二步，按照顺序，将每个元素与"基准"进行比较，形成两个子集，一个"小于45"，另一个"大于等于45"。
+
+![](./shot/quick_sort2.png)
+
+第三步，对两个子集不断重复第一步和第二步，直到所有子集只剩下一个元素为止。
+
+![](./shot/quick_sort3.png)
+
+```javascript
+var quickSort = function(arr) {
+　　if (arr.length <= 1) { return arr; }
+　　var pivotIndex = Math.floor(arr.length / 2);
+　　var pivot = arr.splice(pivotIndex, 1)[0];
+　　var left = [];
+　　var right = [];
+　　for (var i = 0; i < arr.length; i++){
+　　　　if (arr[i] < pivot) {
+　　　　　　left.push(arr[i]);
+　　　　} else {
+　　　　　　right.push(arr[i]);
+　　　　}
+　　}
+　　return quickSort(left).concat([pivot], quickSort(right));
+};
+```
+算法分析
+
+最佳情况：T(n) = O(nlogn) 
+最差情况：T(n) = O(n2) 
+平均情况：T(n) = O(nlogn)
