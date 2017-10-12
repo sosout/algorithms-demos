@@ -113,14 +113,13 @@ function selectSort(arr){
 
 **介绍**： 把一个数组分为两个数组，左边排好序，右边排好序，然后合并到一起排序
 
-**时间复杂度**:  O(n^2)
+**时间复杂度**:  O(n-1)
 
 **动画演示**：[选择排序](http://www.ee.ryerson.ca/~courses/coe428/sorting/mergesort.html)
 
 **实际代码**
 
 ```javascript
-var arr=[-11, 17, 12, 19, 0, -222];
 function mergeSort(arr, s, e){
     if(s > e) {   //起始位置大于终点位置，返回空数组
         return [];
@@ -132,7 +131,7 @@ function mergeSort(arr, s, e){
     var arrL = mergeSort(arr,s,mIndex); //将左边的数组排序
     var arrR = mergeSort(arr,mIndex+1,e); //将右边的数组排序
     
-    var resultArr = []; //结果数组
+    var resultArr = []; // 结果数组
     while(arrL.length > 0 || arrR.length > 0) { //当左右两个数组都不为空时
         if(arrL[0]<arrR[0]){
             resultArr.push(arrL.shift());
@@ -140,7 +139,7 @@ function mergeSort(arr, s, e){
             resultArr.push(arrR.shift());
         }
 
-        if(arrL.length==0){  //当左边的数组为空时
+        if(arrL.length==0){  // 当左边的数组为空时
             resultArr = resultArr.concat(arrR);
             break;
         }else if(arrR.length==0){
@@ -151,5 +150,6 @@ function mergeSort(arr, s, e){
     return resultArr;
 }
 
-document.write(mergeSort(arr,0,arr.length-1));
+var arr=[-11, 17, 12, 19, 0, -222];
+console.log(mergeSort(arr,0,arr.length-1));
 ```
