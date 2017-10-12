@@ -1,5 +1,36 @@
 # algorithms-demos
 
+## 插入排序（Insert Sort）
+
+**原理图：**
+
+![](./shot/insert_sort.png)
+
+**介绍**：最普通的排序算法， 从数组下标1开始每增1项排序一次，越往后遍历次数越多。
+
+**实际代码**：
+
+```javascript
+// 插入排序 从下标1开始每增1项排序一次，越往后遍历次数越多
+function insertSort(array) {
+  var len = array.length,
+      i, j, tmp, result;
+
+  // 设置数组副本
+  result = array.slice(0);
+  for(i=1; i < len; i++){
+    tmp = result[i];
+    j = i - 1;
+    while(j>=0 && tmp < result[j]){
+      result[j+1] = result[j];
+      j--;
+    }
+    result[j+1] = tmp;
+  }
+  return result;
+}
+```
+
 ## 冒泡排序（Bubble sort）
 
 **原理图：**
@@ -13,6 +44,7 @@
 **动画演示**：[冒泡排序](http://www.webhek.com/post/comparison-sort.html)
 
 **实际代码**：
+
 ```javascript
 /**
 对比arr中的第j+1项和第j项，如果第j+1项小于第j项，就把第j+1项和第j项调换位置。如果没达到最终的顺序（从小到大），就继续找，继续换，直到达到最终效果
@@ -153,3 +185,5 @@ function mergeSort(arr, s, e){
 var arr=[-11, 17, 12, 19, 0, -222];
 console.log(mergeSort(arr,0,arr.length-1));
 ```
+
+## 快速排序（quick sort）
