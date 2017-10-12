@@ -2,6 +2,10 @@
 
 ## 冒泡排序（Bubble sort）
 
+**原理图：**
+
+![](./shot/bubble_sort.png)
+
 **介绍**：比较相邻的两个数，如果后面的比前面的小，把小的放在前面。
 
 **时间复杂度**:  O(n^2)
@@ -70,13 +74,82 @@ function bubbleSort(arr){
 
 ## 选择排序（selection Sort）
 
+**原理图：**
+
+![](./shot/selection_sort.jpg)
+
 **介绍**：在乱序的数组中选择最小的值，然后和每次循环后的数组的第一位进行交换
 
-**时间复杂度**:  O(n^2)
+**时间复杂度**:  O((n - 1) + (n - 2) ... + 1)
 
 **动画演示**：[选择排序](http://www.webhek.com/post/comparison-sort.html)
 
 **实际代码**
 
 ```javascript
+// 在无序区中选出最小的元素，然后将它和无序区的第一个元素交换位置。
+// 原理跟冒泡排序一样，算是冒泡的衍生版本
+function selectSort(arr){
+    var len=arr.length;
+    var temp;
+    for(var i=0;i<len-1;i++){
+        for(var j=i+1;j<len;j++){
+            if(arr[j]<arr[i]){
+                temp=arr[j];
+                arr[j]=arr[i];
+                arr[i]=temp;
+            }
+        }
+    }
+    return arr;
+}
+```
+
+## 归并排序（merge Sort）
+
+**原理图：** 
+
+![](./shot/merge_sort.png)
+
+**介绍**： 把一个数组分为两个数组，左边排好序，右边排好序，然后合并到一起排序
+
+**时间复杂度**:  O(n^2)
+
+**动画演示**：[选择排序](http://www.ee.ryerson.ca/~courses/coe428/sorting/mergesort.html)
+
+**实际代码**
+
+```javascript
+var arr=[-11, 17, 12, 19, 0, -222];
+function mergeSort(arr, s, e){
+    if(s > e) {   //起始位置大于终点位置，返回空数组
+        return [];
+    } else if(s == e) {
+        return [arr[s]]; //起始位置等于终点位置，说明数组里只有一个数字，返回只含一个数字的数组    
+    }
+
+    var mIndex = Math.floor((s+e)/2); //中间位置的Index
+    var arrL = mergeSort(arr,s,mIndex); //将左边的数组排序
+    var arrR = mergeSort(arr,mIndex+1,e); //将右边的数组排序
+    
+    var resultArr = []; //结果数组
+    while(arrL.length > 0 || arrR.length > 0) { //当左右两个数组都不为空时
+        if(arrL[0]<arrR[0]){
+            resultArr.push(arrL.shift());
+        }else{
+            resultArr.push(arrR.shift());
+        }
+
+        if(arrL.length==0){  //当左边的数组为空时
+            resultArr = resultArr.concat(arrR);
+            break;
+        }else if(arrR.length==0){
+            resultArr = resultArr.concat(arrL);
+            break;
+        }
+    }
+    return resultArr;
+}
+
+document.write(mergeSort(arr,0,arr.length-1));
 ```
